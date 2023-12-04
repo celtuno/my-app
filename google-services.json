@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "572370352440",
+    "firebase_url": "https://planner-65610-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "planner-65610",
+    "storage_bucket": "planner-65610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572370352440:android:b3f4909732540c057da9cd",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572370352440-in0qfi6j96ichu4ikts5esu2an0o8lgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2guXT9jkRaw-b6azILMCbQiUtO6uH014"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572370352440-in0qfi6j96ichu4ikts5esu2an0o8lgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

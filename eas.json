@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 5.9.1"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+            "env": {        
+        "APP_NAME": "My App (Dev)"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+       "env": {        
+        "APP_NAME": "My App (Dev)"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -21,10 +21,24 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.example.myapplication",
+      "googleServicesFile": "./google-services.json"
     },
+      "plugins": [
+        
+          "@react-native-firebase/app",
+          
+          "@react-native-firebase/auth"
+        
+      ],
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "74b2e704-9a6d-4e8a-809b-c5c89818bd88"
+      }
     }
   }
 }
