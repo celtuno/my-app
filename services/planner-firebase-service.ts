@@ -1,108 +1,126 @@
-import { useState } from "react";
+// import { useState } from "react";
 import IDay, { DataType, IMyDay, IPreset } from "../types/day.type";
 // import  {  getDatabase, onValue, set, update, get, push, orderByKey, orderByChild, child, DatabaseReference, remove, ref, Database, DataSnapshot } from "@react-native-firebase/database";
-// import  {firebase}from "@react-native-firebase/database";
-import  database, { FirebaseDatabaseTypes } from "@react-native-firebase/database";
+import firebase from "@react-native-firebase/app";
+import database, {
+  FirebaseDatabaseTypes,
+} from "@react-native-firebase/database";
 
+import config from "../config-fb_planner";
 // import React, { Suspense, useEffect, useState } from "react";
 
 // const db = getDatabase();
 
-// function GetDbref(dataType: DataType, childData: string |null = null) {    
-//   console.log("Connecting to db...");    
+// function GetDbref(dataType: DataType, childData: string |null = null) {
+//   console.log("Connecting to db...");
 //   const  databaseReference = database().ref(`/${dataType}`+ childData ?? '')
 //   return databaseReference;
 // }
 // const dbRef = GetDbref(dataType)
+
 class PlannerAPI {
-  
-  HandleDaySnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
-    // const [days, setDays] = useState<Array<IMyDay>>(new Array<IMyDay>());
-    let tmpDayArr : Array<IMyDay> = []
-   alert("Test")
-    snapshot.forEach(function (childSnapshot) {
-      try{ 
-      const key = childSnapshot.key;
-        const values = childSnapshot.val();
-        const childData: IMyDay = {
-          Id: Number.parseInt(key ?? "0"),
-          Name: values.Name,
-          Description: values.Descritption,
-          Activities: values.Activities,
-        };
-        childData.Id = Number.parseInt(key ?? "0");
-        console.log("Handle day snapshot:")
-        console.log(childData)
-        tmpDayArr.push(childData)        
-      }
-      catch(e)
-      {
-        console.log(e)
-        return true
-      }  
-      })
-      // setDays(tmpUserArr)
-      return tmpDayArr   
-  }
-HandlePresetSnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
-    // const [days, setDays] = useState<Array<IMyDay>>(new Array<IMyDay>());
-    let tmpPresetArr : Array<IMyDay> = []
-   alert("Trest")
-    snapshot.forEach(function (childSnapshot) {
-      try{ 
-      const key = childSnapshot.key;
-        const values = childSnapshot.val();
-        const childData: IMyDay = {
-          Id: Number.parseInt(key ?? "0"),
-          Name: values.Name,
-          Description: values.Descritption,
-          Activities: values.Activities,
-        };
-        childData.Id = Number.parseInt(key ?? "0");
-        console.log("Handle preset snapshot:")
-        console.log(childData)
-        tmpPresetArr.push(childData)        
-      }
-      catch(e)
-      {
-        console.log(e)
-        return true
-      }  
-      })
-      // setDays(tmpUserArr)
-      return tmpPresetArr   
-  }
-  async GetDBAllIemsSnapshot(dataType: string) {
-    let snapshotData = []
-    const db = database();
-    db.useEmulator("127.0.0.1",9000);
-    const dbRef = db.ref(`/${dataType}`);
-    // let Snapshot: DataSnapshot | null | undefined;
-   let returnBool = false;
-    // console.log( dbRef.toJSON())
-       await dbRef.once('value').then((snapshot) => {
-          if (snapshot.exists()) {
+  HandleDaySnapshot = async (dbRef: FirebaseDatabaseTypes.Module) => {
+    let tmpDayArr: Array<IMyDay> = [];
+    let returnBool = false;
+    //  alert("Test")
+    const dbPath: string = "/planner/";
+    await dbRef
+      .ref(dbPath)
+      .once("value")
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log("Snapshot found, planner data:");
+          if (snapshot.hasChildren())
+            console.log("Children: " + snapshot.numChildren());
+
+          snapshot.forEach((childSnapshot) => {
+            if (!childSnapshot) return true;
+
+            const key = childSnapshot.key;
+            const values = childSnapshot.val();
+            const childData: IMyDay = {
+              Id: Number.parseInt(key ?? "0"),
+              Name: values.Name,
+              Description: values.Descritption,
+              Activities: values.Activities,
+            };
+            childData.Id = Number.parseInt(key ?? "0");
+            console.log("Handle day snapshot:");
+            console.log(childData);
+            tmpDayArr.push(childData);
             returnBool = true;
-            // databaseReference = dbRef;
-            console.log("Snapshot found,"+ {dataType}+" data:");
-             if(snapshot.hasChildren())
-            //  for (let index = 0; index < snapshot.numChildren(); index++) {
-            //   const element = snapshot.val();
-              console.log("Children: " + snapshot.numChildren())
-            //  }
-            // console.log(item.toJSON());
-            snapshotData = (dataType === 'planner') 
-              ? 
-              this.HandleDaySnapshot(snapshot)
-              : 
-              this.HandlePresetSnapshot(snapshot)
-          } 
+          });
+        }
+      });
+    return { returnBool, tmpDayArr };
+  };
+  HandlePresetSnapshot = async (dbRef: FirebaseDatabaseTypes.Module) => {
+    let tmpPresetArr: Array<IPreset> = [];
+    let returnBool = false;
+    //  alert("Presets")
+    const dbPath: string = "/presets/";
 
+    await dbRef
+      .ref(dbPath)
+      .once("value")
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          returnBool = true;
+          console.log("Snapshot found, preset data:");
+          console.log(snapshot.val());
+          if (snapshot.hasChildren())
+            console.log("Children: " + snapshot.numChildren());
+          snapshot.forEach(function (childSnapshot) {
+            try {
+              if (!childSnapshot.exists()) return;
+              const key = childSnapshot.key;
+              const values = childSnapshot.val();
+              const childData: IPreset = {
+                Id: Number.parseInt(key ?? "0"),
+                Name: values.Name,
+                Description: values.Descritption,
+                Activities: values.Activities,
+              };
+              childData.Id = Number.parseInt(key ?? "0");
+              console.log("Handle preset snapshot:");
+              console.log(childData);
+              tmpPresetArr.push(childData);
+            } catch (e) {
+              console.log(e);
+              return true;
+            }
+          });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    return { returnBool, tmpPresetArr };
+  };
 
+  async GetDBAllIemsSnapshot(dataType: string) {
+    let days: IMyDay[];
+    let presets: IPreset[];
 
-             });
-  return {snapshotFound:returnBool, data:snapshotData};
-            // return {snapshot};
+    database().useEmulator("127.0.0.1", 9000);
+    database().setLoggingEnabled(true);
+    let returnBool = false;
+
+    if (dataType === "planner") {
+      const daydata = await this.HandleDaySnapshot(database());
+      if (daydata.returnBool) {
+        days = daydata.tmpDayArr;
+        returnBool = daydata.returnBool;
+      }
+    }
+    if (dataType === "presets") {
+      const presetdata = await this.HandlePresetSnapshot(database());
+      if (presetdata.returnBool) {
+        presets = presetdata.tmpPresetArr;
+        returnBool = presetdata.returnBool;
+      }
+    }
+    return { snapshotFound: returnBool, data: { days, presets } };
   }
   // async GetDBSnapshotCount(dataType: DataType) {
   //   let activityCount = 0;
@@ -110,7 +128,7 @@ HandlePresetSnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
   //   // let databaseReference: DatabaseReference | null = null
   //   // let dbActivitySnapshot: DataSnapshot | null | undefined;
   //   // let dbPresetSnapshot: DataSnapshot | null | undefined;
-    
+
   //   const db =database();
   //   db.useEmulator("127.0.0.1",9000);
   //   const dbRef = db.ref(`/${dataType}`);
@@ -131,7 +149,7 @@ HandlePresetSnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
   //       //         presetCount = snapshot.size;
   //       //         break;
   //       //       // case DataType.Planner:
-  //       //       //   break; 
+  //       //       //   break;
   //       //       default:
   //       //         break;
   //       //     }
@@ -142,9 +160,9 @@ HandlePresetSnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
   //   return returnData;
   // }
   // async GetDbOne(dataType: DataType, key: number) {
-    
-  //     const databaseReference = await  GetDbref(dataType,`/${key}/`)      
-  //     // orderByChild('name'));     
+
+  //     const databaseReference = await  GetDbref(dataType,`/${key}/`)
+  //     // orderByChild('name'));
 
   //   return databaseReference;
   // }
@@ -242,8 +260,6 @@ HandlePresetSnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
   //   )
   // }
 
-
-
   // inintDb() {
   //   const db = getDatabase();
   //   return db.app.name;
@@ -256,7 +272,7 @@ HandlePresetSnapshot = (snapshot: FirebaseDatabaseTypes.DataSnapshot) =>{
   //     console.log(day)
   //     if (day === null)
   //       return null
-  //     // day = 
+  //     // day =
   //     // {
   //     //   name: "dbName",
   //     //   formiddag: "dbform",

@@ -48,6 +48,7 @@ export function HomeScreen({navigation}) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Settings Screen</Text>
+        
         <Text>{extraData}</Text>
       </View>
     );
@@ -62,7 +63,7 @@ export  function DetailsScreen({ route }) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{fontWeight:'bold'}}>Details Screen</Text>
-        <Text>{itemId}</Text>
+        <Text>{itemId ?? "no data"}</Text>
       </View>
     );
   }

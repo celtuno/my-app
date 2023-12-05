@@ -8,7 +8,12 @@ import { Feather , } from '@expo/vector-icons';
         name: string;
         baseEnthusiasmLevel?: number;
     };
-
+        const ImageWithRequire = ({ name }) => {
+            const image = images[name];
+            return (
+                <Image key={name} style={styles.image} source={image} />
+            )
+        };
     export const Activities: React.FC<Props> = ({
     name,
     baseEnthusiasmLevel = 0,}) => 
@@ -16,26 +21,18 @@ import { Feather , } from '@expo/vector-icons';
         const [days, setDays] = useState<Array<IMyDay>>(new Array<IMyDay>());        
         const [snapshotFound,setSnapshotFound] = React.useState<Boolean>(false);
         
-        const GetData = () =>{
-            const tmp = PlannerAPI.GetDBAllIemsSnapshot('planner').then((dataFound) => 
-            {
+        const GetData = async ()  =>{
+            const dataFound =  await PlannerAPI.GetDBAllIemsSnapshot('planner');
+            if(dataFound){
 
-            
-            setSnapshotFound(dataFound.snapshotFound);//dataFound.snapshotFound)
-            if(dataFound.snapshotFound)
-            {
-                // alert("OK")
-                setDays(dataFound.data)
+                setSnapshotFound(dataFound.snapshotFound);//dataFound.snapshotFound)
+                if(dataFound.snapshotFound)
+                {             
+                    setDays(dataFound.data.days)
+                }             
             }
+        }       
 
-            // )
-            // snapshotFound = true;
-            }).catch((e) =>{
-                console.log(e)
-                alert("Error")
-            });
-        }
-        
         return(
         <>
             <Button onPress={GetData} title="Check data"></Button>
@@ -51,21 +48,22 @@ import { Feather , } from '@expo/vector-icons';
                             {
                                 dayItem?.Activities.map((activity, activityIndex) => (
                                 <React.Fragment key={activityIndex}>                        
-                                    <Text
+                                    {/* <Text
                                         id={"day" + activity.Id}
                                         key={activityIndex}                            
                                     >
                                         {activity.Image}
-                                    </Text>
+                                    </Text> */}
                                     <Feather  name={activity.Selected ? 'check-circle': 'circle'}
                                     size={20}
                                     />
-                                    <Image key={activityIndex + 1} style={styles.image}
+                                    <ImageWithRequire name={activity.Image.split('.').slice(0, -1).join('.')}/>
+                                    {/* <Image key={activityIndex + 1} style={styles.image}
                                         // onError={(e) => {
                                         //      = "images/error.png";
                                         // }}
-                                        source={require(`./assets/images/image5.png`)}//${activity.Image.split('.').slice(0, -1).join('.')}`}}
-                                        alt={activity.Name} />
+                                        source={{uri:GetImagePath(activity.Image)}}//${activity.Image.split('.').slice(0, -1).join('.')}`}}
+                                        alt={activity.Name} /> */}
                                 </React.Fragment>
                                 ))                
                             }
@@ -83,21 +81,21 @@ import { Feather , } from '@expo/vector-icons';
         )
     };
 
-    export const Presets: React.FC<Props> = ({
+    export  const Presets: React.FC<Props> = ({
     name,
     baseEnthusiasmLevel = 0,}) => 
     {
         const [presets, setPresets] = useState<Array<IPreset>>(new Array<IPreset>());
         const [snapshotFound,setSnapshotFound] = React.useState<Boolean>(false);
         
-        const GetData = () =>{
-            const tmp = PlannerAPI.GetDBAllIemsSnapshot('presets').then((dataFound) => 
+        const GetData = async () =>{
+            const tmp = await PlannerAPI.GetDBAllIemsSnapshot('presets').then((dataFound) => 
             {
                 setSnapshotFound(dataFound.snapshotFound);
                 if(dataFound.snapshotFound)
                 {
                     // alert("OK")
-                    setPresets(dataFound.data)
+                    setPresets(dataFound.data.presets)
                 }           
             }).catch((e) =>{
                 console.log(e)
@@ -121,20 +119,17 @@ import { Feather , } from '@expo/vector-icons';
                     presetItem?.Activities.map((activity, activityIndex) => (
                     <React.Fragment key={activityIndex}>
                         
-                        <Text                           
+                        {/* <Text                           
                             id={"presets" + activity.Id}
                             key={activityIndex}
                             
                         >
                             {activity.Image}
-                        </Text>
+                        </Text> */}
                         <Feather  name={activity.Selected ? 'check-circle': 'circle'}
                           size={20}
                           />
-                        <Image key={activityIndex + 1} style={styles.image}
-                            
-                            source={require(`./assets/images/image5.png`)}
-                            alt={activity.Name} />
+                       <ImageWithRequire name={activity.Image.split('.').slice(0, -1).join('.')}/>
                     </React.Fragment>                           
                 ))                
                 }
@@ -172,5 +167,21 @@ import { Feather , } from '@expo/vector-icons';
         flexDirection:'column'
        }
      });
+
+     const images = {
+        // image1: require('./assets/images/image1.png'),
+        // image2: require('./assets/images/image2.png'),
+        // image3: require('./assets/images/image3.png'),
+        image4: require('./assets/images/image4.png'),
+        image5: require('./assets/images/image5.png'),
+        image6: require('./assets/images/image6.png'),
+        image7: require('./assets/images/image7.png'),
+        image8: require('./assets/images/image8.png'),
+        image9: require('./assets/images/image9.png'),
+        image10: require('./assets/images/image10.png'),
+        image11: require('./assets/images/image11.png'),
+        error: require('./assets/images/error.png')    
+     }
+
   export default Activities
   
