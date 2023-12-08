@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:572370352440:android:b3f4909732540c057da9cd",
+        "mobilesdk_app_id": "1:572370352440:android:e5e1cb37060988807da9cd",
         "android_client_info": {
-          "package_name": "com.example.myapplication"
+          "package_name": "celtuno.org.myApplication"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "572370352440-q5g1rg5jmf5iguutsicq3qhkm55nvlt7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "celtuno.org.myApplication",
+            "certificate_hash": "eb9bc3242ac123e01ef9ae86519c369a06bb68da"
+          }
+        },
         {
           "client_id": "572370352440-in0qfi6j96ichu4ikts5esu2an0o8lgs.apps.googleusercontent.com",
           "client_type": 3
