@@ -16,11 +16,7 @@ class PlannerHandlerAPI {
     let returnBool = false;
 
     if (dataType === DataType.Planner) {
-      const daydata = await DayAPI.HandleDaySnapshot(
-        database(),
-        DataType.User,
-        key
-      );
+      const daydata = await DayAPI.HandleDaySnapshot(database(), dataType, key);
       if (daydata.returnBool) {
         days = daydata.tmpDayArr;
         returnBool = daydata.returnBool;
@@ -29,7 +25,7 @@ class PlannerHandlerAPI {
     if (dataType === DataType.Presets) {
       const presetdata = await PresetAPI.HandlePresetSnapshot(
         database(),
-        DataType.User,
+        dataType,
         key
       );
       if (presetdata.returnBool) {
@@ -40,7 +36,7 @@ class PlannerHandlerAPI {
     if (dataType === DataType.User) {
       const userdata = await UserAPI.HandleUserSnapshot(
         database(),
-        DataType.User,
+        dataType,
         key
       );
       if (userdata.returnBool) {
@@ -51,43 +47,99 @@ class PlannerHandlerAPI {
     return { snapshotFound: returnBool, data: { days, presets, users } };
   }
 
-  // async GetDBSnapshotCount(dataType: DataType) {
-  //   let activityCount = 0;
-  //   let presetCount = 0;
-  //   // let databaseReference: DatabaseReference | null = null
-  //   // let dbActivitySnapshot: DataSnapshot | null | undefined;
-  //   // let dbPresetSnapshot: DataSnapshot | null | undefined;
+  async GetDBSnapshotCount(dataType: DataType) {
+    let activityCount = 0;
+    let presetCount = 0;
+    let userCount = 0;
+    // let databaseReference: DatabaseReference | null = null
+    // let dbActivitySnapshot: DataSnapshot | null | undefined;
+    // let dbPresetSnapshot: DataSnapshot | null | undefined;
 
-  //   const db =database();
-  //   db.useEmulator("127.0.0.1",9000);
-  //   const dbRef = db.ref(`/${dataType}`);
-  //     dbRef.on('value', snapshot => {
-  //        console.log('User data: ', snapshot.val());
-  //      });
-  //       //  await onValue(dbRef, (snapshot) => {
-  //       //   if (snapshot.exists()) {
-  //       //     // databaseReference = dbRef;
-  //       //     // console.log("Snapshot found,"+ {dataType}+" data:");
-  //       //     switch (dataType) {
-  //       //       case DataType.Planner:
-  //       //         // dbActivitySnapshot = snapshot;
-  //       //         activityCount = snapshot.size;
-  //       //         break;
-  //       //       case DataType.Presets:
-  //       //         // dbPresetSnapshot = snapshot;
-  //       //         presetCount = snapshot.size;
-  //       //         break;
-  //       //       // case DataType.Planner:
-  //       //       //   break;
-  //       //       default:
-  //       //         break;
-  //       //     }
-  //       //   }
-  //       // });
+    // db.useEmulator("127.0.0.1", 9000);
+    // const dataTypeArr = [DataType.Planner, DataType.Presets, DataType.User];
+    // await dataTypeArr.forEach(async (dataType) => {
+    console.log(`${dataType}`);
+    switch (dataType) {
+      case DataType.Planner:
+        if (true) {
+          const db = database();
+          await db
+            .ref(`${dataType}`)
+            .once("value")
+            .then((snapshot) => {
+              if (snapshot.exists() && snapshot.hasChildren) {
+                console.log(
+                  "Snapshot found," +
+                    dataType +
+                    " data: " +
+                    snapshot.numChildren()
+                );
+                activityCount = snapshot.numChildren();
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+            })
+            .finally(() => {});
+        }
+        break;
+      case DataType.Presets:
+        if (true) {
+          const db = database();
+          await db
+            .ref(`${dataType}`)
+            .once("value")
+            .then((snapshot) => {
+              if (snapshot.exists() && snapshot.hasChildren) {
+                console.log(
+                  "Snapshot found," +
+                    { dataType } +
+                    " data:  " +
+                    snapshot.numChildren()
+                );
+                presetCount = snapshot.numChildren();
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        break;
+      case DataType.User:
+        if (true) {
+          const db = database();
+          await db
+            .ref(`${dataType}`)
+            .once("value")
+            .then((snapshot) => {
+              if (snapshot.exists() && snapshot.hasChildren) {
+                console.log(
+                  "Snapshot found," +
+                    { dataType } +
+                    " data:  " +
+                    snapshot.numChildren()
+                );
+                userCount = snapshot.numChildren();
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        }
+        break;
+      default:
+        break;
+    }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // });
+    console.log(activityCount);
 
-  //     const returnData = dataType === DataType.Planner ?  activityCount : presetCount;
-  //   return returnData;
-  // }
+    // });
+
+    return { activityCount, presetCount, userCount };
+  }
   // async GetDbOne(dataType: DataType, key: number) {
   //   const databaseReference = await GetDbref(dataType, `/${key}/`);
   //   // orderByChild('name'));

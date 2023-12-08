@@ -4,7 +4,7 @@ import PlannerHandlerAPI from "./planner-handler";
 import database, {
   FirebaseDatabaseTypes,
 } from "@react-native-firebase/database";
-import auth from "@react-native-firebase/auth";
+import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import {
   GoogleSignin,
   User,
@@ -106,7 +106,7 @@ class AuthAPI {
       });
   }
 
-  CheckAuth = async (user: User | null | undefined) => {
+  CheckAuth = async (user: FirebaseAuthTypes.User | null | undefined) => {
     //
     let tmpuser: IUser | null | undefined = null;
     await PlannerHandlerAPI.GetDBAllIemsSnapshot(DataType.User, "").then(
@@ -114,30 +114,29 @@ class AuthAPI {
         const users = response.data.users;
 
         if (user) {
-          if (user) console.log("Logged in as : anonymous");
+          if (user.isAnonymous) console.log("Logged in as : anonymous");
           else {
-            console.log(
-              "Logged in: " + user.user.name + " - " + user.user.email
-            );
-            if (user.user.email) {
-              UserApi.SearchUserData(user.user.email, users).then(
-                (userData) => {
-                  if (!userData) return;
-                  if (userData.tmpuser.Name) {
-                    userData.tmpuser.Name === "";
-                    console.log("Checkauth:no user found..");
-                    return;
-                  }
-                  console.log(
-                    "Id: " +
-                      userData.tmpuser.Id +
-                      " Name: " +
-                      userData.tmpuser.Name
-                  );
-                  tmpuser = userData.tmpuser;
+            console.log("Logged in: " + user.displayName + " - " + user.email);
+            if (user.email) {
+              UserApi.SearchUserData(user.email, users).then((userData) => {
+                if (!userData) return;
+                if (!userData.tmpuser.Name) {
+                  userData.tmpuser.Name === "";
+                  console.log("Checkauth:no user found..");
+                  return;
                 }
-              );
+                console.log(
+                  "Id: " +
+                    userData.tmpuser.Id +
+                    " Name: " +
+                    userData.tmpuser.Name
+                );
+                tmpuser = userData.tmpuser;
+                console.log("Config");
+                console.log(userData.tmpuser.Config);
+              });
             }
+            return { authUser: user, dbUser: tmpuser };
           }
         } else console.log("Not logged in: ");
       }

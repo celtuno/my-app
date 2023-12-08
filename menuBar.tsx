@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { Button, ScrollView, StyleSheet, Text, View} from 'react-native';
-import Activities, { Login, Presets, UserData, Users } from './dataTest';
+import Activities, { Statistics, Login, Presets, UserData, Users } from './classHandler';
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +33,8 @@ export function HomeScreen({navigation}) {
         <Button title="Go to Details" onPress={() => navigation.navigate('Details', { itemId: 123 })} />
         <Button title="Go to Activities" onPress={() => navigation.navigate('Activities', { itemId: 123 })} />
         <Button title="Go to Presets" onPress={() => navigation.navigate('Presets', { itemId: 123 })} />
-        <Button title="Go to Settings" onPress={() => navigation.navigate('Settings', { itemId: 123 })} />
+        <Button title="Go to Profile" onPress={() => navigation.navigate('Settings', { itemId: 123 })} />
+        <Button title="Go to Users" onPress={() => navigation.navigate('Users', { itemId: 123 })} />
         </View>
       </View>
     );
@@ -45,55 +46,82 @@ export function HomeScreen({navigation}) {
   export function LoginScreen({navigation, authUser}) {
     authUser? AuthTitle = "Logut" : "Login"
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>{authUser ? "Logout screen" : "Login Screen"}</Text>
-        <View style={{margin:30, columnGap:12}}>        
-        {/* <Button title="Settings" onPress={() => navigation.navigate('Settings', { itemId: 123 })} /> */}
-        <Login name={''}/>
+      <View >
+        {/* style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}> */}
+        {authUser 
+        ?
+        <Text style={[{ fontSize:22, margin:6, textAlign:'center'}]}>{"Profile"}</Text>
+        :
+        <View>
+          <Text style={[{ fontSize:28, margin:6, textAlign:'center'}]}>{"Welcome to planner"}</Text>
+          <Text style={{ fontSize:18, margin:6, textAlign:'center'}}>{"Login to continue"}</Text>
         </View>
-      </View>
+  }
+        {/* <View style={{margin:30, columnGap:12}}>         */}
+        {/* <Button title="Settings" onPress={() => navigation.navigate('Settings', { itemId: 123 })} /> */}
+        <Login name={''} navigation={navigation}/>
+        </View>
+      // </View>
     );
   }
   LoginScreen.navigationOptions = {
    title:  AuthTitle,
   };
- export function SettingsScreen({props, authuser, extraData}) {
+ export function SettingsScreen({props, authuser, navigation}) {
     
   return (
-      <ScrollView>
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Settings Screen</Text>
-          <UserData name={''} authuser={authuser}/>
-          <Text>{extraData}</Text>
+      <View >
+        <View >
+          {/* style={{ flex: 0, alignItems: 'center', justifyContent: 'center' }}> */}
+          {/* <Text style={{textAlign:'center'}}>Settings Screen</Text> */}
+          <UserData name={''} authuser={authuser} navigation={navigation}/>
+          {/* <Text>{extraData}</Text> */}
         </View>
-      </ScrollView>
+      </View>
     );
   }
 SettingsScreen.navigationOptions = {
     title: 'Settings',
   };
-export  function DetailsScreen({ route }) {
+export  function StatisticsScreen({ route, navigation }) {
     // const { itemId } = route.params;
     // Use the itemId parameter
     // ...
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{fontWeight:'bold'}}>Details Screen</Text>
+      <View >
+      {/* style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}> */}
+        {/* <Text style={{fontWeight:'bold'}}>Details Screen</Text> */}
+        <Statistics name={''} navigation={navigation}/>
         {/* <Text>{itemId ?? "no data"}</Text> */}
       </View>
     );
   }
-  DetailsScreen.navigationOptions = {
-    title: 'Details',
+  StatisticsScreen.navigationOptions = {
+    title: 'Statistics',
   };
-  
+  export  function UsersScreen({ route, navigation }) {
+    // const { itemId } = route.params;
+    // Use the itemId parameter
+    // ...
+    return (
+      <ScrollView style={{margin:5}}>
+       {/* style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}> */}
+        <Text style={{fontWeight:'bold'}}>UsersScreen Screen</Text>
+        <Users name={''} navigation={navigation} />
+        {/* <Text>{itemId ?? "no data"}</Text> */}
+      </ScrollView>
+    );
+  }
+  UsersScreen.navigationOptions = {
+    title: 'Users',
+  };
  export function ActivityScreen({navigation}) {
     return (
-      <ScrollView>
+      <View style={{margin:5}}>
         <Text style={{fontSize:33,fontWeight:'500'}}>Activities</Text>
         <StatusBar style="auto" />
-        <Activities name={''} />
-      </ScrollView>
+        <Activities name={''} navigation={navigation} />
+      </View>
     );
   }
   ActivityScreen.navigationOptions = {
@@ -101,10 +129,10 @@ export  function DetailsScreen({ route }) {
   };
   export function PresetScreen({navigation}) {
     return (
-      <ScrollView>
+      <ScrollView style={{margin:5}}>
         <Text style={{fontSize:33,fontWeight:'500'}}>Presets</Text>
         <StatusBar style="auto" />
-        <Presets name={''} />
+        <Presets name={''}  navigation={navigation}/>
       </ScrollView>
     );
   }

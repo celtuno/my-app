@@ -1,12 +1,15 @@
 import "react-native-gesture-handler";
-import React, { View, Text, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { View, Text } from "react-native";
+
 import {
   HomeScreen,
   SettingsScreen,
-  DetailsScreen,
+  StatisticsScreen,
   ActivityScreen,
   PresetScreen,
   LoginScreen,
+  UsersScreen,
 } from "./menuBar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -39,6 +42,7 @@ export default function App(props) {
   // }
 
   return (
+    // <main>
     <>
       {/* <MenuBar></MenuBar> */}
       <NavigationContainer>
@@ -50,8 +54,13 @@ export default function App(props) {
             options={{ drawerItemStyle: { display: user ? "flex" : "none" } }}
           />
           <Drawer.Screen
-            name="Details"
-            component={DetailsScreen}
+            name="Users"
+            component={UsersScreen}
+            options={{ drawerItemStyle: { display: "none" } }}
+          />
+          <Drawer.Screen
+            name="Statistics"
+            component={StatisticsScreen}
             options={{ drawerItemStyle: { display: user ? "flex" : "none" } }}
           />
           <Drawer.Screen
@@ -91,11 +100,12 @@ export default function App(props) {
           name="Home" 
           component={HomeScreen} 
           options={{
-              title:"MenuBar title"
-            }}
-            /> */}
+            title:"MenuBar title"
+          }}
+        /> */}
       {/* <Tab.Screen name="Settings" component={SettingsScreen} />  */}
     </>
+    // </main>
   );
 }
 // export function DefaultScreen({navigation}) {
