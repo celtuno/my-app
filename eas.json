@@ -6,20 +6,51 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-            "env": {        
+      "env": {
         "APP_NAME": "My App (Dev)"
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "env": {
+        "APP_NAME": "My App (Preview)"
+      }
+    },
+    "preview2": {
+      "env": {
+        "APP_NAME": "My App (Preview)"
+      }
     },
     "production": {
-       "env": {        
-        "APP_NAME": "My App (Dev)"
+      "autoIncrement": true,
+      "env": {
+        "APP_NAME": "My App (Prod)"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./planner-65610-0fa4f4fd6768.json"
+      }
+    },
+    "preview": {
+      "android": {
+        "serviceAccountKeyPath": "./planner-65610-0fa4f4fd6768.json",
+        "track": "internal",
+        "releaseStatus": "draft"
+      }
+    },
+    "preview2": {
+      "android": {
+        "serviceAccountKeyPath": "./planner-65610-0fa4f4fd6768.json",
+        "releaseStatus": "draft"
+      }
+    },
+    "preview3": {
+      "android": {
+        "serviceAccountKeyPath": "./planner-65610-1cfbb235c7cd.json"
+      }
+    }
   }
 }

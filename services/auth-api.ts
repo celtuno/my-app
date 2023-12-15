@@ -80,7 +80,7 @@ class AuthAPI {
         });
         const { idToken } = await GoogleSignin.signIn();
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        auth().signInWithCredential(googleCredential);
+        await auth().signInWithCredential(googleCredential);
         break;
       case "apple":
         alert("Disabled");

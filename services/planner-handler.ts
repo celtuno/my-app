@@ -47,6 +47,11 @@ class PlannerHandlerAPI {
     return { snapshotFound: returnBool, data: { days, presets, users } };
   }
 
+  async UpdateUserData(key: string, userData: IUser) {
+    const userdata = await UserAPI.UpdateUserData(database(), key, userData);
+    console.log("Updated user???");
+  }
+
   async GetDBSnapshotCount(dataType: DataType) {
     let activityCount = 0;
     let presetCount = 0;

@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "planner-65610",
+  "private_key_id": "0fa4f4fd6768ffd330f4797d73fd274c49ecb0de",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDZ3AdwmcUq9Dt/\nHjb9cldc+wV2OZPo96MZ3sivG3cNsFge+PCFazNSbjPvOS27M5nSu58OcLb2a7wE\nuTzBtsWs8iVelhKo7DQ1Q5VMqY2vmdiy86tMNf6vuLTLFQUV6G4Y2Emp2SOaHkTx\ncBQDx1WUnhq/W4g6Wd1TFDrVksmxqc3oiZe00MWHVBu5URBGXPfVRGUH4RigF+2G\n3tFc8/citiqK4o9WmVHGLrtUEpxlQLhLmtdvRlSb8VtUH+8oc+7s7ZwiiWwAd4BO\n12gEfnCIvabBaXohGiYfljdZulRfZSuQqS/mzm56StLLX/DXZchekmiypJW+2Tg4\nSuWt1QdpAgMBAAECggEAB9qkzGJIQBsLsptd7yYAFmKkWOcYZ5c0FwwsHvxY5496\ndc9kKeMwK/le1yBS/1SuxNmKqKc0bzdic+z12nVuV2p/ONlTkkDRXNchw48t1VYO\nDDpEMf83ydcqt/XviVGFPX/JNvraRdzkUU8OrUy+FVOtrFyudEdadxLKOR0qq36M\nlHik2GKSk/32iyoQGyNY1cfr573xoN4UoGPA6vILYRhTTwotkikvka5mUk3Yrhtb\ndwU01tTEpdjrd32y5MR1fOSibE6yT/Hh9iJcba++cj1Zb/+jbzualIDK+mwnW7Mj\nDKS4q4ZGFXGGsxCa88Ag5yhwJ4w2LwYxA4evSYewKwKBgQD2M1Pt48sBeauzBhjg\nyltggjYFMyY3oVMmSBQyuuuQXeaK7tRik80uP3utvZCo9WrVmEkObyWgs+hlth3H\n+fGkde8U1lA2JcOw2tJweKfaK9BMUuK91FrLPRf+8qVYXHGjS0PTiuho5DsVCTwh\ngC+dOQ/pPA53jHZ/hnJRTQKbzwKBgQDih+tJAZo4niPaFf6yCTVAxvRdVgE0A0l0\njoB72u0lOcYg5voWmc7Njcj5aFTq90QNLrzi1pfHQlz8huMRlYDM69VGwE8g86gB\nWiXGoVjWBrOY9krUUYpT0MbNlEtn0UDDy2rDmyW7CBgq1XKVonArT/7uKRmd5JuV\nCG6JwZZfRwKBgC4qZ8WG3m0zZHfYX9fe+g15vSlycushjBb0kx0EIeHbSbyplhe6\nAVJ3wvhMQJD+G/9bY++Z9eNRePWBlcoG20Hsf11X5oiQwkYqciV26nqllpSJQk04\nQaI0nYhH9atBAmoNVfWX6YaprU5/gdACWmtP5OTmRwwxwZKeIleOajvPAoGAGmI8\nPB+Mp8V7ZX4kUPYTlrzVXz2SHE25s3KZclN4RVqqQdDFFfbKCFTYMHw/T7KG4YYt\nB7p4qQOIsvy+26BvBO7+wyPI04ytZ6LpPW4zW5IiPtGIu5vXoZVyYiVAdxH/Gg7K\nG4gpZ9Q0hGCh3N2zdMf3aCOvUR18JWp6/V5nticCgYEAs7W9YhXgcAXMPq25trxF\nrY4FSh7/l5/SnCcLa1H9R994UAKspexn6uGXvxg+mP1vP3RE7ChvKQDob/WRU8u6\niJF4ozy3kaFuQf88Q9QxW9wtfaE88NGdJpFQ4XXuuNr7/Ih4O4XlSVPK0/jFsoIU\nN6AaWsBhFi+K9RRrPo/xA3w=\n-----END PRIVATE KEY-----\n",
+  "client_email": "play-console-service-account@planner-65610.iam.gserviceaccount.com",
+  "client_id": "113807098637787412206",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/play-console-service-account%40planner-65610.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

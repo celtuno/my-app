@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { Button, ScrollView, StyleSheet, Text, View} from 'react-native';
-import Activities, { Statistics, Login, Presets, UserData, Users } from './classHandler';
+import  { Activities,Statistics, Login, Presets, UserData, Users } from '../classHandler';
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -25,15 +25,16 @@ const Stack = createNativeStackNavigator();
 //    </NavigationContainer>
 //   );
 // }
-export function HomeScreen({navigation}) {
+export function HomeScreen({navigation, authUser}) {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Home Screen</Text>
         <View style={{margin:30, columnGap:12}}>
-        <Button title="Go to Details" onPress={() => navigation.navigate('Details', { itemId: 123 })} />
         <Button title="Go to Activities" onPress={() => navigation.navigate('Activities', { itemId: 123 })} />
         <Button title="Go to Presets" onPress={() => navigation.navigate('Presets', { itemId: 123 })} />
+        <Button title="Go to Details" onPress={() => navigation.navigate('Details', { itemId: 123 })} />
         <Button title="Go to Profile" onPress={() => navigation.navigate('Settings', { itemId: 123 })} />
+        {}
         <Button title="Go to Users" onPress={() => navigation.navigate('Users', { itemId: 123 })} />
         </View>
       </View>
@@ -118,7 +119,7 @@ export  function StatisticsScreen({ route, navigation }) {
  export function ActivityScreen({navigation}) {
     return (
       <View style={{margin:5}}>
-        <Text style={{fontSize:33,fontWeight:'500'}}>Activities</Text>
+        {/* <Text style={{fontSize:33,fontWeight:'500'}}>Activities</Text> */}
         <StatusBar style="auto" />
         <Activities name={''} navigation={navigation} />
       </View>
@@ -129,11 +130,11 @@ export  function StatisticsScreen({ route, navigation }) {
   };
   export function PresetScreen({navigation}) {
     return (
-      <ScrollView style={{margin:5}}>
-        <Text style={{fontSize:33,fontWeight:'500'}}>Presets</Text>
+      <View style={{margin:5}}>
+        {/* <Text style={{fontSize:33,fontWeight:'500'}}>Presets</Text> */}
         <StatusBar style="auto" />
         <Presets name={''}  navigation={navigation}/>
-      </ScrollView>
+      </View>
     );
   }
   PresetScreen.navigationOptions = {

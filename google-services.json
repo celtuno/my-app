@@ -15,11 +15,72 @@
       },
       "oauth_client": [
         {
+          "client_id": "572370352440-kpe38sif4q5c3s5argl8taprm3akrvru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "celtuno.org.myApplication",
+            "certificate_hash": "40cb8da48c27e62af14118cebfcd1cf755e93eb6"
+          }
+        },
+        {
+          "client_id": "572370352440-m5itgsl1maaj06escrtoi94b37f5k4u9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "celtuno.org.myApplication",
+            "certificate_hash": "2e0296c3d6c4237d7db9985789fe877b4185adef"
+          }
+        },
+        {
           "client_id": "572370352440-q5g1rg5jmf5iguutsicq3qhkm55nvlt7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "celtuno.org.myApplication",
             "certificate_hash": "eb9bc3242ac123e01ef9ae86519c369a06bb68da"
+          }
+        },
+        {
+          "client_id": "572370352440-vt55lmf3p7tjfodfkpq9le0p0qe1j8h5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "celtuno.org.myApplication",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "572370352440-in0qfi6j96ichu4ikts5esu2an0o8lgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2guXT9jkRaw-b6azILMCbQiUtO6uH014"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572370352440-in0qfi6j96ichu4ikts5esu2an0o8lgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572370352440:android:b3f4909732540c057da9cd",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572370352440-92blprk32nuhkk1ll3eu1r0rlm5ki68c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "3d77db911c59daeba7b7e43eec9d2d82f6d61b7c"
           }
         },
         {
