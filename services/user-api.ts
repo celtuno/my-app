@@ -19,7 +19,7 @@ class UserAPI {
         if (snapshot.exists()) {
           returnBool = true;
           console.log("Snapshot found, user data:");
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           if (snapshot.hasChildren())
             console.log("Children: " + snapshot.numChildren());
           snapshot.forEach(function (childSnapshot) {
@@ -36,8 +36,8 @@ class UserAPI {
                 Config: values.Config,
               };
               childData.Id = Number.parseInt(key ?? "0");
-              console.log("Handle user snapshot:");
-              console.log(childData);
+              // console.log("Handle user snapshot:");
+              // console.log(childData);
               tmpUserArr.push(childData);
             } catch (e) {
               console.log(e);
@@ -72,7 +72,7 @@ class UserAPI {
 
     users.forEach((user) => {
       const userNameMatch = user.Name;
-      console.log(userNameMatch);
+      // console.log(userNameMatch);
       if (query === userNameMatch) {
         const childData: IUser = {
           Id: user.Id ?? 0,

@@ -35,8 +35,8 @@ class DayAPI {
               Activities: values.Activities,
             };
             childData.Id = Number.parseInt(key ?? "0");
-            console.log("Handle day snapshot:");
-            console.log(childData);
+            // console.log("Handle day snapshot:");
+            // console.log(childData);
             tmpDayArr.push(childData);
             returnBool = true;
           });

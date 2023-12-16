@@ -34,16 +34,13 @@ export const Presets: React.FC<Props> = ({ name }) => {
     if (auth().currentUser) {
       await AuthAPI.CheckAuth(authuser).then((data) => {
         console.log("Check auth");
-        console.log(data.dbUser);
+        // console.log(data.dbUser);
         if (data.dbUser && data.dbUser.Id > 0) {
           setUser(data.dbUser);
         }
       });
     } else console.log("Not logged in");
   };
-  useEffect(() => {
-    if (!user || !auth().currentUser) GetUserData();
-  });
   const GetData = async () => {
     const tmp = await PlannerHandler.GetDBAllIemsSnapshot(DataType.Presets, "")
       .then((dataFound) => {
@@ -58,12 +55,18 @@ export const Presets: React.FC<Props> = ({ name }) => {
         alert(`Error: ${e}`);
       });
   };
+
   useEffect(() => {
-    if (!snapshotFound) GetData();
+    if (!user || !auth().currentUser) GetUserData();
   });
+
   useEffect(() => {
-    if (!user) GetUserData();
+    if (!snapshotFound && presets.length <= 0) GetData();
   });
+
+  // useEffect(() => {
+  //   if (!user) GetUserData();
+  // });
   const ReFetch = () => {
     GetUserData();
     GetData();
@@ -81,6 +84,7 @@ export const Presets: React.FC<Props> = ({ name }) => {
           presets?.map((presetItem, presetIndex) =>
             presetItem ? (
               <Pressable
+                key={presetIndex}
                 onLongPress={() => {
                   alert("Edit");
                 }}
@@ -111,6 +115,7 @@ export const Presets: React.FC<Props> = ({ name }) => {
                                     size={20}
                                 /> */}
                       <ImageWithRequire
+                        key={presetIndex}
                         name={activity.Image.split(".").slice(0, -1).join(".")}
                       />
                     </React.Fragment>

@@ -21,7 +21,7 @@ class PresetAPI {
         if (snapshot.exists()) {
           returnBool = true;
           console.log("Snapshot found, preset data:");
-          console.log(snapshot.val());
+          // console.log(snapshot.val());
           if (snapshot.hasChildren())
             console.log("Children: " + snapshot.numChildren());
           snapshot.forEach(function (childSnapshot) {
@@ -36,8 +36,8 @@ class PresetAPI {
                 Activities: values.Activities,
               };
               childData.Id = Number.parseInt(key ?? "0");
-              console.log("Handle preset snapshot:");
-              console.log(childData);
+              // console.log("Handle preset snapshot:");
+              // console.log(childData);
               tmpPresetArr.push(childData);
             } catch (e) {
               console.log(e);

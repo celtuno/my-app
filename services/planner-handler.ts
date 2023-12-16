@@ -49,7 +49,7 @@ class PlannerHandlerAPI {
 
   async UpdateUserData(key: string, userData: IUser) {
     const userdata = await UserAPI.UpdateUserData(database(), key, userData);
-    console.log("Updated user???");
+    // console.log("Updated user???");
   }
 
   async GetDBSnapshotCount(dataType: DataType) {
@@ -73,12 +73,12 @@ class PlannerHandlerAPI {
             .once("value")
             .then((snapshot) => {
               if (snapshot.exists() && snapshot.hasChildren) {
-                console.log(
-                  "Snapshot found," +
-                    dataType +
-                    " data: " +
-                    snapshot.numChildren()
-                );
+                // console.log(
+                //   "Snapshot found," +
+                //     dataType +
+                //     " data: " +
+                //     snapshot.numChildren()
+                // );
                 activityCount = snapshot.numChildren();
               }
             })
@@ -96,12 +96,12 @@ class PlannerHandlerAPI {
             .once("value")
             .then((snapshot) => {
               if (snapshot.exists() && snapshot.hasChildren) {
-                console.log(
-                  "Snapshot found," +
-                    { dataType } +
-                    " data:  " +
-                    snapshot.numChildren()
-                );
+                // console.log(
+                //   "Snapshot found," +
+                //     { dataType } +
+                //     " data:  " +
+                //     snapshot.numChildren()
+                // );
                 presetCount = snapshot.numChildren();
               }
             })
@@ -118,12 +118,12 @@ class PlannerHandlerAPI {
             .once("value")
             .then((snapshot) => {
               if (snapshot.exists() && snapshot.hasChildren) {
-                console.log(
-                  "Snapshot found," +
-                    { dataType } +
-                    " data:  " +
-                    snapshot.numChildren()
-                );
+                // console.log(
+                //   "Snapshot found," +
+                //     { dataType } +
+                //     " data:  " +
+                //     snapshot.numChildren()
+                // );
                 userCount = snapshot.numChildren();
               }
             })

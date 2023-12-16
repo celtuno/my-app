@@ -132,8 +132,8 @@ class AuthAPI {
                     userData.tmpuser.Name
                 );
                 tmpuser = userData.tmpuser;
-                console.log("Config");
-                console.log(userData.tmpuser.Config);
+                // console.log("Config");
+                // console.log(userData.tmpuser.Config);
               });
             }
             return { authUser: user, dbUser: tmpuser };

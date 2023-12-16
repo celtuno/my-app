@@ -1,6 +1,10 @@
 import "react-native-gesture-handler";
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import auth from "@react-native-firebase/auth";
+// import { Icon } from "react-native-vector-icons/Ionicons";
+import { Feather } from "@expo/vector-icons";
 
 import {
   HomeScreen,
@@ -11,10 +15,6 @@ import {
   LoginScreen,
   UsersScreen,
 } from "./Components/MenuScreens";
-import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import auth from "@react-native-firebase/auth";
-
 // import { View, Text, Button } from 'react-native';
 // const Tab = createBottomTabNavigator();
 // const Stack = createNativeStackNavigator();
@@ -51,32 +51,48 @@ export default function App(props) {
           <Drawer.Screen
             name="Home"
             component={HomeScreen}
-            options={{ drawerItemStyle: { display: user ? "flex" : "none" } }}
+            options={{
+              drawerItemStyle: { display: user ? "flex" : "none" },
+              drawerIcon: (config) => <Feather name="home" size={23} />,
+            }}
           />
           <Drawer.Screen
             name="Users"
             component={UsersScreen}
-            options={{ drawerItemStyle: { display: "none" } }}
+            options={{
+              drawerItemStyle: { display: "none" },
+              drawerIcon: (config) => <Feather name="users" size={23} />,
+            }}
           />
           <Drawer.Screen
             name="Statistics"
             component={StatisticsScreen}
-            options={{ drawerItemStyle: { display: user ? "flex" : "none" } }}
+            options={{
+              drawerItemStyle: { display: user ? "flex" : "none" },
+              drawerIcon: (config) => <Feather name="info" size={23} />,
+            }}
           />
           <Drawer.Screen
             name="Activities"
             component={ActivityScreen}
-            options={{ drawerItemStyle: { display: user ? "flex" : "none" } }}
+            options={{
+              drawerItemStyle: { display: user ? "flex" : "none" },
+              drawerIcon: (config) => <Feather name="calendar" size={23} />,
+            }}
           />
           <Drawer.Screen
             name="Presets"
             component={PresetScreen}
-            options={{ drawerItemStyle: { display: user ? "flex" : "none" } }}
+            options={{
+              drawerItemStyle: { display: user ? "flex" : "none" },
+              drawerIcon: (config) => <Feather name="list" size={23} />,
+            }}
           />
           <Drawer.Screen
             name="Settings"
             options={{
               drawerItemStyle: { display: user ? "flex" : "none" },
+              drawerIcon: (config) => <Feather name="user" size={23} />,
             }}
           >
             {(props) => (
@@ -89,7 +105,12 @@ export default function App(props) {
           </Drawer.Screen>
           <Drawer.Screen
             name="Login"
-            options={{ title: user ? "Logout" : "Login" }}
+            options={{
+              title: user ? "Logout" : "Login",
+              drawerIcon: (config) => (
+                <Feather name={user ? "log-out" : "log-in"} size={23} />
+              ),
+            }}
           >
             {(props) => <LoginScreen {...props} authUser={user} />}
           </Drawer.Screen>

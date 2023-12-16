@@ -49,7 +49,7 @@ export const UserComponent: React.FC<Props> = ({ name, authuser }) => {
     if (authuser2) {
       await AuthAPI.CheckAuth(authuser2).then((data) => {
         console.log("Check auth");
-        console.log(data.dbUser);
+        // console.log(data.dbUser);
         if (data.dbUser && data.dbUser.Id > 0) {
           setdbUserId(data.dbUser.Id);
           setUser(data.dbUser);
