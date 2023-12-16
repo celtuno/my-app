@@ -2,6 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
+
+import auth from "@react-native-firebase/auth";
 import {
   Button,
   Pressable,
@@ -18,6 +20,7 @@ import {
   UserData,
   Users,
 } from "../classHandler";
+import { Divider } from "react-native-paper";
 // const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +45,9 @@ const Stack = createNativeStackNavigator();
 // }
 export function HomeScreen({ navigation, authUser }) {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{ flex: 1, alignItems: "center", justifyContent: "flex-start" }}
+    >
       {/* <View>
         <Text>Home Screen</Text>
       </View> */}
@@ -55,81 +60,116 @@ export function HomeScreen({ navigation, authUser }) {
           flexWrap: "wrap",
         }}
       >
-        <Pressable
-          onPress={() => navigation.navigate("Activities", { itemId: 123 })}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
+        <View style={{ justifyContent: "flex-start", flexGrow: 4 }}>
+          <Pressable
+            onPress={() => navigation.navigate("Statistics", { itemId: 123 })}
           >
-            <View>
-              <Feather name="calendar" size={83} />
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <View>
+                <Feather name="calendar" size={83} />
+              </View>
+              <View>
+                <Text style={{ padding: 30 }}>Activities</Text>
+              </View>
             </View>
-            <View>
-              <Text style={{ padding: 40 }}>Activities</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate("Activities", { itemId: 123 })}
+          >
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <View>
+                <Feather name="layout" size={83} />
+              </View>
+              <View>
+                <Text style={{ padding: 30 }}>Statistics</Text>
+              </View>
             </View>
-          </View>
-        </Pressable>
-        {/* <Button
+          </Pressable>
+          {/* <Button
           title="Go to Activities"
           onPress={() => navigation.navigate("Activities", { itemId: 123 })}
         /> */}
-        <Pressable
-          onPress={() => navigation.navigate("Presets", { itemId: 123 })}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          <Pressable
+            onPress={() => navigation.navigate("Presets", { itemId: 123 })}
           >
-            <Feather name="list" size={83} />
-            <Text style={{ padding: 40 }}>Presets</Text>
-          </View>
-        </Pressable>
-        {/* <Button
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-around" }}
+            >
+              <Feather name="list" size={83} />
+              <Text style={{ padding: 30 }}>Presets</Text>
+            </View>
+          </Pressable>
+          {/* <Button
           title="Go to Presets"
           onPress={() => navigation.navigate("Presets", { itemId: 123 })}
         /> */}
-        <Pressable
-          onPress={() => navigation.navigate("Details", { itemId: 123 })}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <Feather name="user" size={83} />
-            <Text style={{ padding: 40 }}>Profile</Text>
-          </View>
-        </Pressable>
-        {/* <Button
-          title="Go to Details"
-          onPress={() => navigation.navigate("Details", { itemId: 123 })}
-        /> */}
-        <Pressable
-          onPress={() => navigation.navigate("Settings", { itemId: 123 })}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <Feather name="settings" size={83} />
-            <Text style={{ padding: 40 }}>Settings</Text>
-          </View>
-        </Pressable>
-        {/* <Button
+          {auth().currentUser && !auth().currentUser.isAnonymous ? (
+            <Pressable
+              onPress={() => navigation.navigate("Settings", { itemId: 123 })}
+            >
+              <View
+                style={{ flexDirection: "row", justifyContent: "space-around" }}
+              >
+                <Feather name="settings" size={83} />
+                <Text style={{ padding: 30 }}>Settings</Text>
+              </View>
+            </Pressable>
+          ) : (
+            ""
+          )}
+          {/* <Button
           title="Go to Profile"
           onPress={() => navigation.navigate("Settings", { itemId: 123 })}
         /> */}
-        {}
-        <Pressable
-          onPress={() => navigation.navigate("Users", { itemId: 123 })}
-        >
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-around" }}
-          >
-            <Feather name="users" size={83} />
-            <Text style={{ padding: 40 }}>Users</Text>
-          </View>
-        </Pressable>
-        {/* <Button
+          {auth().currentUser && !auth().currentUser.isAnonymous ? (
+            <Pressable
+              onPress={() => navigation.navigate("Users", { itemId: 123 })}
+            >
+              <View
+                style={{ flexDirection: "row", justifyContent: "space-around" }}
+              >
+                <Feather name="users" size={83} />
+                <Text style={{ padding: 30 }}>Users</Text>
+              </View>
+            </Pressable>
+          ) : (
+            ""
+          )}
+          {/* <Button
           title="Go to Users"
           onPress={() => navigation.navigate("Users", { itemId: 123 })}
         /> */}
+        </View>
+        <View style={{ flexGrow: 1 }}>
+          <Pressable
+            onPress={() => navigation.navigate("Login", { itemId: 123 })}
+          >
+            <Divider />
+            <View
+              style={{
+                margin: 10,
+                flexDirection: "row",
+                justifyContent: "space-around",
+              }}
+            >
+              <Feather
+                name={auth().currentUser ? "log-out" : "log-in"}
+                size={23}
+              />
+              <Text style={{ padding: 6 }}>
+                {auth().currentUser ? "Logout" : "Login"}
+              </Text>
+            </View>
+          </Pressable>
+          {/* <Button
+          title="Go to Details"
+          onPress={() => navigation.navigate("Details", { itemId: 123 })}
+        /> */}
+        </View>
       </View>
     </View>
   );

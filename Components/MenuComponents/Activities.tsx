@@ -50,7 +50,7 @@ export const Activities: React.FC<Props> = ({ name }) => {
   };
 
   useEffect(() => {
-    if (!user && !auth().currentUser) GetUserData();
+    if (!user && auth().currentUser) GetUserData();
   });
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export const Activities: React.FC<Props> = ({ name }) => {
                       user && user.Config && user.Config.color1
                         ? user.Config.color1
                         : "#05050310",
-                    borderRadius: 10,
+                    borderRadius: 4,
                     margin: 15,
                     padding: 15,
                   },

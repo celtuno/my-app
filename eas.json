@@ -17,6 +17,7 @@
       }
     },
     "preview2": {
+      "autoIncrement": true,
       "env": {
         "APP_NAME": "My App (Preview)"
       }

@@ -50,12 +50,15 @@ export default function App(props) {
         <Drawer.Navigator initialRouteName={user ? "Home" : "Login"}>
           <Drawer.Screen
             name="Home"
-            component={HomeScreen}
+            // component={HomeScreen}
             options={{
               drawerItemStyle: { display: user ? "flex" : "none" },
               drawerIcon: (config) => <Feather name="home" size={23} />,
             }}
-          />
+          >
+            {(props) => <HomeScreen {...props} authUser={user} />}
+          </Drawer.Screen>
+
           <Drawer.Screen
             name="Users"
             component={UsersScreen}
@@ -91,7 +94,10 @@ export default function App(props) {
           <Drawer.Screen
             name="Settings"
             options={{
-              drawerItemStyle: { display: user ? "flex" : "none" },
+              drawerItemStyle: {
+                display:
+                  user && !auth().currentUser?.isAnonymous ? "flex" : "none",
+              },
               drawerIcon: (config) => <Feather name="user" size={23} />,
             }}
           >

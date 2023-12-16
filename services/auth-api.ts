@@ -78,7 +78,22 @@ class AuthAPI {
         await GoogleSignin.hasPlayServices({
           showPlayServicesUpdateDialog: true,
         });
-        const { idToken } = await GoogleSignin.signIn();
+
+        const idToken = await GoogleSignin.signIn()
+          .then((user) => {
+            return user.idToken;
+          })
+          .catch((error) => {
+            if (error.code === "auth/user-disabled") {
+              console.log("Sign-in for this email address is disabled!");
+            }
+            if (error.code === "12501") {
+              console.log("Sign-in canceled!");
+            }
+            console.log(error.code);
+            return null;
+          });
+        if (!idToken) break;
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
         await auth().signInWithCredential(googleCredential);
         break;
@@ -94,9 +109,11 @@ class AuthAPI {
     }
   }
   async SignOut() {
+    GoogleSignin.revokeAccess;
     auth()
       .signOut()
       .then(() => {
+        if (GoogleSignin.isSignedIn) GoogleSignin.signOut();
         console.log("Sign-out successful");
         // Sign-out successful.
       })

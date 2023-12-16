@@ -57,7 +57,7 @@ export const Presets: React.FC<Props> = ({ name }) => {
   };
 
   useEffect(() => {
-    if (!user || !auth().currentUser) GetUserData();
+    if (!user && auth().currentUser) GetUserData();
   });
 
   useEffect(() => {
