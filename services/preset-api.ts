@@ -52,6 +52,30 @@ class PresetAPI {
     return { returnBool, tmpPresetArr };
   };
 
+  UpdatePreset = async (
+    dbRef: FirebaseDatabaseTypes.Module,
+    key: string,
+    thePresets: IPreset | null
+  ) => {
+    if (thePresets === null) {
+      console.log("No user data");
+      return null;
+    }
+    const updates = {};
+    const path = "/presets/" + key;
+    updates["/presets/" + key] = thePresets;
+    console.log("Add result: ");
+    await dbRef
+      .ref(path)
+      .update(thePresets)
+      .then((result) => {
+        console.log("Updating preset");
+      })
+      .catch((e) => {
+        console.error("Error updating preset: ", e);
+        return e;
+      });
+  };
   // async GetDBSnapshotCount(dataType: DataType) {
   //   let activityCount = 0;
   //   let presetCount = 0;

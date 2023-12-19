@@ -96,7 +96,6 @@ class UserAPI {
     key: string,
     theUser: IUser | null
   ) => {
-    // try {
     if (theUser === null) {
       console.log("No user data");
       return null;
@@ -109,14 +108,12 @@ class UserAPI {
       .ref(path)
       .update(theUser)
       .then((result) => {
-        console.log("Updating");
+        console.log("Updating user");
       })
       .catch((e) => {
-        // } catch (e) {
         console.error("Error updating user: ", e);
         return e;
       });
-    // }
   };
   // UpdateUser = async (userId: number, user: IUser) => {
   //   if (userId === undefined || userId === null || userId === 0) {
